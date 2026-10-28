@@ -1,0 +1,35 @@
+ETAPA 8 — PERGUNTAS DE ANÁLISE DA IMPLEMENTAÇÃO
+
+1. Qual classe implementa Singleton e quais instruções controlam a instância?
+- Classe: Configuracao.
+- Controle: Construtor privado (private Configuracao()), atributo estático final com a única instância (INSTANCIA) e método estático público para acesso (getInstancia()).
+
+2. Onde aparecem encapsulamento e validação?
+- Encapsulamento: Atributos privados (private final) nas classes de modelo.
+- Validação: Nos construtores e métodos das classes Curso e Aluno, lançando IllegalArgumentException para entradas inválidas.
+
+3. Qual é a relação entre Aluno e Curso?
+- Associação unidirecional (agregação fraca), onde a classe Aluno contém uma referência para uma coleção de objetos do tipo Curso.
+
+4. Onde foi utilizada uma coleção e com qual objetivo?
+- Aluno: List<Curso> para guardar os cursos em que o aluno está matriculado.
+- ServicoMatricula: List<ObservadorMatricula> para gerenciar a lista de observadores cadastrados no sistema.
+
+5. Qual é o papel da interface Desconto?
+- Definir um contrato padronizado (método aplicar) desacoplando as regras de cálculo do ServicoMatricula através do padrão Strategy.
+
+6. Como acrescentar uma política de 20% sem alterar o serviço?
+- Criando uma nova classe que implemente a interface Desconto (ex: DescontoVintePorCento) e injetando-a ao instanciar o ServicoMatricula.
+
+7. Quem produz o evento e quem recebe as notificações?
+- Produtor: ServicoMatricula (dispara as notificações ao matricular).
+- Receptores: As classes concretas AvisoEmail e Auditoria (que implementam ObservadorMatricula).
+
+8. Por que o adaptador converte reais em centavos?
+- Para compatibilizar a interface moderna do sistema (que aceita reais em double) com a exigência do SistemaLegado (que exige centavos inteiros).
+
+9. Qual método representa Factory Method?
+- O método abstrato public abstract Comprovante criar() definido em CriadorComprovante e sobrescrito nas subclasses.
+
+10. O que FachadaAcademica simplifica para Main?
+- Oculta a complexidade de orquestração dos subsistemas (matrícula, pagamento e comprovante), oferecendo um único ponto de chamada de alto nível (matricularEEmitir).
